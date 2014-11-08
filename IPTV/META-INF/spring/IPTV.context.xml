@@ -27,7 +27,7 @@
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
     <wlevs:listener ref="helloworldchannel"/>
     <wlevs:instance-property name="bindPort" value="9090"/>
-    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/>
+    <wlevs:instance-property name="bindAddress" value="localhost"/>
   </wlevs:adapter>
   <wlevs:channel id="helloworldchannel" event-type="HelloWorldEventType">
     <wlevs:listener ref="PrintMessage"/>
