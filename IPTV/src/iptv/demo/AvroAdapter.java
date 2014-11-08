@@ -72,7 +72,7 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
 
     @Override
     public Status append(AvroFlumeEvent avroEvent) {
-        String  message = new String(avroEvent.getBody().asCharBuffer().array());
+        String  message = new String(avroEvent.getBody().array());
         HelloWorldEvent event = new HelloWorldEvent();
         event.setMessage(message);
         eventSender.sendInsertEvent(event);
