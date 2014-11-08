@@ -21,7 +21,7 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
     private Logger logger = LoggerFactory.getLogger(AvroAdapter.class);
     private StreamSender    eventSender;
     private int             bindPort = 1000;
-    private String          bindAddr = "localhost";
+    private String          bindAddr = null;
     private boolean         suspended;
     private Server          avroServer;
     
@@ -36,9 +36,15 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
 
     @Override
     public void run() {
-        logger.info("Starting AvroAdapter on {}:{}", this.bindAddr, this.bindPort);
-        avroServer = new NettyServer(new SpecificResponder(AvroSourceProtocol.class, this), new InetSocketAddress(bindAddr, bindPort));
+        InetSocketAddress isaddr;
+        if ((null == bindAddr) || (bindAddr.length() == 0)) {
+            isaddr = new InetSocketAddress(bindPort);
+        } else {
+            isaddr = new InetSocketAddress(bindAddr, bindPort);
+        }
+        avroServer = new NettyServer(new SpecificResponder(AvroSourceProtocol.class, this), isaddr );
         avroServer.start();
+        logger.info("Starting AvroAdapter on {}", isaddr.toString());
         try {
             avroServer.join();
         } catch (InterruptedException e) {
