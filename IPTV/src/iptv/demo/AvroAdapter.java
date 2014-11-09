@@ -1,8 +1,13 @@
 package iptv.demo;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.bea.wlevs.ede.api.RunnableBean;
 import com.bea.wlevs.ede.api.StreamSender;
 import com.bea.wlevs.ede.api.StreamSource;
+
+import java.io.IOException;
+import java.io.StringReader;
 
 import java.net.InetSocketAddress;
 
@@ -17,14 +22,13 @@ import org.apache.avro.ipc.Server;
 import org.apache.avro.ipc.specific.SpecificResponder;
 
 public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtocol {
-    private static final int SLEEP_MILLIS = 1000;
     private Logger logger = LoggerFactory.getLogger(AvroAdapter.class);
     private StreamSender    eventSender;
     private int             bindPort = 1000;
     private String          bindAddr = null;
     private boolean         suspended;
     private Server          avroServer;
-    
+
     public static void main(String args[]) { 
         AvroAdapter adapter = new AvroAdapter();
         adapter.run();
@@ -59,10 +63,6 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
         suspended = true;
     }
 
-    private synchronized boolean isSuspended() {
-        return suspended;
-    }
-
     @Override
     public void setEventSender(StreamSender streamSender) {
         eventSender = streamSender;
@@ -78,11 +78,20 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
 
     @Override
     public Status append(AvroFlumeEvent avroEvent) {
-        String  message = new String(avroEvent.getBody().array());
-        HelloWorldEvent event = new HelloWorldEvent();
-        event.setMessage(message);
-        eventSender.sendInsertEvent(event);
-
+        String  line = new String(avroEvent.getBody().array());      
+        CSVReader csv = new CSVReader(new StringReader(line), '\t');
+        String[] list = null;
+        try {
+            list = csv.readNext();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DemoEvent de = DemoEvent.newInstance(list);
+        if (null != de){
+            HelloWorldEvent hwe = new HelloWorldEvent();
+            hwe.setMessage(de.toString());
+            this.eventSender.sendInsertEvent(hwe);
+        }
         return Status.OK;
     }
 
