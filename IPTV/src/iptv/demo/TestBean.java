@@ -2,22 +2,18 @@ package iptv.demo;
 
 import java.sql.Date;
 
-public class UserTrackEvent {
-    private Date        trackTime;
+public class TestBean {
+    private String       trackTime;
     private String      userId;
     private String      targetURL;
     private String      referURL;
     private String         pageId;
-    
-    public UserTrackEvent() {
-        super();
-    }
 
-    public void setTrackTime(Date trackTime) {
+    public void setTrackTime(String trackTime) {
         this.trackTime = trackTime;
     }
 
-    public Date getTrackTime() {
+    public String getTrackTime() {
         return trackTime;
     }
 
@@ -51,5 +47,9 @@ public class UserTrackEvent {
 
     public String getPageId() {
         return pageId;
+    }
+
+    public TestBean() {
+        super();
     }
 }
