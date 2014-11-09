@@ -1,13 +1,26 @@
 package iptv.demo;
 
-import java.sql.Date;
-
-public class TestBean {
-    private String       trackTime;
+public class DemoEvent {
+    private String      trackTime;
     private String      userId;
     private String      targetURL;
     private String      referURL;
-    private String         pageId;
+    private String      pageId;
+
+    public static DemoEvent newInstance(String[] list){
+        DemoEvent de = new DemoEvent();
+        try {
+            de.setTrackTime(list[0]);
+            de.setUserId(list[1]);
+            de.setTargetURL(list[2]);
+            de.setReferURL(list[3]);
+            de.setPageId(list[4]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return de;
+    }
 
     public void setTrackTime(String trackTime) {
         this.trackTime = trackTime;
@@ -49,7 +62,11 @@ public class TestBean {
         return pageId;
     }
 
-    public TestBean() {
+    public DemoEvent() {
         super();
+    }
+    
+    public String toString(){
+        return trackTime+", "+userId+", "+targetURL+", "+referURL+", "+pageId;
     }
 }
