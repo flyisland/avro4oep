@@ -23,14 +23,25 @@
     <wlevs:event-type type-name="HelloWorldEventType">
       <wlevs:class>iptv.demo.HelloWorldEvent</wlevs:class>
     </wlevs:event-type>
+    <wlevs:event-type type-name="DemoEventType">
+      <wlevs:class>iptv.demo.DemoEvent</wlevs:class>
+    </wlevs:event-type>
+    <wlevs:event-type type-name="AlertEventType">
+      <wlevs:class>iptv.demo.AlertEvent</wlevs:class>
+    </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
-    <wlevs:listener ref="helloworldchannel"/>
+    <wlevs:listener ref="inChannel"/>
     <wlevs:instance-property name="bindPort" value="9090"/>
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
-  <wlevs:channel id="helloworldchannel" event-type="HelloWorldEventType">
-    <wlevs:listener ref="PrintMessage"/>
+  <wlevs:event-bean id="Alert" class="iptv.demo.AlertBean"/>
+  <wlevs:channel id="inChannel" event-type="DemoEventType">
+    <wlevs:listener ref="demo_processor"/>
   </wlevs:channel>
-  <wlevs:event-bean id="PrintMessage" class="iptv.demo.HelloWorldBean"/>
+  <wlevs:processor id="demo_processor"/>
+  <wlevs:channel id="outChannel" event-type="AlertEventType">
+    <wlevs:listener ref="Alert"/>
+    <wlevs:source ref="demo_processor"/>
+  </wlevs:channel>
 </beans>

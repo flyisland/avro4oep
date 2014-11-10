@@ -88,9 +88,7 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
         }
         DemoEvent de = DemoEvent.newInstance(list);
         if (null != de){
-            HelloWorldEvent hwe = new HelloWorldEvent();
-            hwe.setMessage(de.toString());
-            this.eventSender.sendInsertEvent(hwe);
+            this.eventSender.sendInsertEvent(de);
         }
         return Status.OK;
     }
