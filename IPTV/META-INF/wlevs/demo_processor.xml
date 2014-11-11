@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wlevs:config xmlns:wlevs="http://www.bea.com/ns/wlevs/config/application">
   <processor>
-    <name>demo_processor</name>
+    <name>count_processor</name>
     <rules>
-      <query id="ExampleQuery"><![CDATA[ 
- select userId as id, pageId as figure from inChannel [now] ]]></query>
+      <query id="UserCount"><![CDATA[ 
+ select "User Count" as atype, userId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by userId ]]></query>
     </rules>
   </processor>
 </wlevs:config>

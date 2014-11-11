@@ -1,6 +1,15 @@
 package iptv.demo;
 
 public class AlertEvent {
+    private String  atype;
+
+    public void setAtype(String type) {
+        this.atype = type;
+    }
+
+    public String getAtype() {
+        return atype;
+    }
     private String  id;
     private int  figure;
     public AlertEvent() {
@@ -17,7 +26,7 @@ public class AlertEvent {
 
     
     public String toString(){
-        return String.format("ID: %s, Value: %d", id, figure);
+        return String.format("Type: %s, ID: %s, Value: %d", atype, id, figure);
     }
 
     public void setFigure(int figure) {

@@ -12,7 +12,7 @@ public class AlertBean implements StreamSink {
     public void onInsertEvent(Object event) throws EventRejectedException {
         if (event instanceof AlertEvent) {
             AlertEvent alert = (AlertEvent) event;
-            System.out.println("Alert : " + alert.toString());
+            System.out.println(alert.toString());
         }
     }
 }
