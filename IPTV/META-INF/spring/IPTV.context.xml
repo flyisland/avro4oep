@@ -20,9 +20,6 @@
   http://www.oracle.com/ns/oep/nosqldb
   http://www.oracle.com/ns/oep/nosqldb/oep-nosqldb.xsd">
   <wlevs:event-type-repository>
-    <wlevs:event-type type-name="HelloWorldEventType">
-      <wlevs:class>iptv.demo.HelloWorldEvent</wlevs:class>
-    </wlevs:event-type>
     <wlevs:event-type type-name="DemoEventType">
       <wlevs:class>iptv.demo.DemoEvent</wlevs:class>
     </wlevs:event-type>
