@@ -27,6 +27,7 @@ public class TestLoader {
 
         while(null != (str_line = br.readLine())){
             client.append(EventBuilder.withBody(str_line, Charset.forName("UTF-8")));
+            System.out.println(str_line);
             try {
                 Thread.sleep(SLEEP_MILLIS);
             } catch (InterruptedException e) {
