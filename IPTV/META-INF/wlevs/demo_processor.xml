@@ -4,13 +4,11 @@
     <name>count_processor</name>
     <rules>
       <query id="UserCount"><![CDATA[ 
- select "User Count" as atype, userId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by userId ]]></query>
+ select "Click Count" as atype, userId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by userId ]]></query>
       <query id="PageCount"><![CDATA[ 
  select "Page Count" as atype, pageId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by pageId ]]></query>
       <query id="ActiveUser"><![CDATA[ 
  select "Active User" as atype, "0" as id, count(distinct userId) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] ]]></query>
-      <query id="PassThrough"><![CDATA[ 
- select "Record" as atype, userId as id, pageId as figure from inChannel [NOW] ]]></query>
     </rules>
   </processor>
 </wlevs:config>
