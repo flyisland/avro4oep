@@ -85,6 +85,7 @@
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="CEP"/>
+         <string v="Coherence"/>
          <string v="Java"/>
          <string v="XML"/>
       </list>
@@ -353,6 +354,15 @@
       <value n="j2eeWebAppName" v="FastData_App-IPTV-webapp"/>
       <value n="j2eeWebContextRoot" v="FastData_App-IPTV-context-root"/>
    </hash>
+   <hash n="oracle.jdeveloper.runner.RunConfigurations">
+      <hash n="runConfigurationDefinitions">
+         <hash n="Default">
+            <value n="custom" v="false"/>
+            <value n="javaOptions" v="-Dtangosol.coherence.cacheconfig=&quot;/D:/JDeveloper/mywork/FastData_App/IPTV/src/META-INF/coherence-cache-config.xml&quot;"/>
+            <value n="name" v="Default"/>
+         </hash>
+      </hash>
+   </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
@@ -401,6 +411,10 @@
          </hash>
          <hash>
             <value n="id" v="Commons-lang-2.5"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Coherence Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -554,6 +568,10 @@
          </hash>
          <hash>
             <value n="id" v="Commons-lang-2.5"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Coherence Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

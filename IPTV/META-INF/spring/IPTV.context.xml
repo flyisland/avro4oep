@@ -26,12 +26,16 @@
     <wlevs:event-type type-name="AlertEventType">
       <wlevs:class>iptv.demo.AlertEvent</wlevs:class>
     </wlevs:event-type>
+    <wlevs:event-type type-name="UserRegionBean">
+      <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>
+    </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
     <wlevs:listener ref="inChannel"/>
     <wlevs:instance-property name="bindPort" value="9090"/>
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
+  <wlevs:caching-system id="demo-caching-system" provider="coherence"/>
   <wlevs:event-bean id="Alert" class="iptv.demo.AlertBean"/>
   <wlevs:channel id="inChannel" event-type="DemoEventType">
     <wlevs:listener ref="count_processor"/>
@@ -41,4 +45,7 @@
     <wlevs:listener ref="Alert"/>
     <wlevs:source ref="count_processor"/>
   </wlevs:channel>
+  <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
+    <wlevs:caching-system ref="demo-caching-system"/>
+  </wlevs:cache>
 </beans>
