@@ -35,9 +35,10 @@
     <wlevs:instance-property name="bindPort" value="9090"/>
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
-  <wlevs:caching-system id="demo-caching-system" provider="coherence"/>
+  <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
   <wlevs:event-bean id="Alert" class="iptv.demo.AlertBean"/>
   <wlevs:channel id="inChannel" event-type="DemoEventType">
+    <wlevs:listener ref="cache_processor"/>
     <wlevs:listener ref="count_processor"/>
   </wlevs:channel>
   <wlevs:processor id="count_processor"/>
@@ -48,4 +49,8 @@
   <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
     <wlevs:caching-system ref="demo-caching-system"/>
   </wlevs:cache>
+  <wlevs:processor id="cache_processor">
+    <wlevs:listener ref="outChannel"/>
+    <wlevs:cache-source ref="urCache"/>
+  </wlevs:processor>
 </beans>

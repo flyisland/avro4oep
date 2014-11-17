@@ -8,6 +8,13 @@ public class UserRegionBean implements Serializable {
     private String  userId;
     private String  regionId;
 
+    public static UserRegionBean newInstance(String uid, String rid){
+        UserRegionBean urb = new UserRegionBean();
+        urb.setUserId(uid);
+        urb.setRegionId(rid);
+        return urb;
+    }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -26,5 +33,9 @@ public class UserRegionBean implements Serializable {
 
     public UserRegionBean() {
         super();
+    }
+    
+    public String toString(){
+        return userId+"->"+regionId;
     }
 }

@@ -15,4 +15,13 @@
     <name>demo-caching-system</name>
     <coherence-cache-config>coherence-cache-config.xml</coherence-cache-config>
   </coherence-caching-system>
+  <processor>
+    <name>cache_processor</name>
+    <rules>
+      <query id="ActiveUserRegion"><![CDATA[ 
+ select "Region Active" as atype, urCache.regionId as id, urCache.userId as figure
+ from inChannel [now], urCache 
+ where inChannel.userId=urCache.userId]]></query>
+    </rules>
+  </processor>
 </wlevs:config>
