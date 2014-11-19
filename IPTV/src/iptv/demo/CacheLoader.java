@@ -43,6 +43,7 @@ public class CacheLoader {
         System.setProperty("tangosol.coherence.cacheconfig", cohfile);
         NamedCache cache= CacheFactory.getCache("urCache");
         
+        System.out.println("==> cache size = "+cache.size());
         int i=0;
         long begin=System.currentTimeMillis();
         for (i=0;i<10;i++){
@@ -59,10 +60,5 @@ public class CacheLoader {
         }
         long end=System.currentTimeMillis();
         System.out.println("==> cache size:"+cache.size()+", cost time is "+(end-begin)/1000+ " s\n");
-        for (i=0;i<10;i++){
-            String uid = String.valueOf(i);
-            UserRegionBean urb = (UserRegionBean)cache.get(uid);
-            System.out.println(urb);
-        }        
     }
 }
