@@ -11,10 +11,6 @@
  select "Active User" as atype, "0" as id, count(distinct userId) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] ]]></query>
     </rules>
   </processor>
-  <coherence-caching-system>
-    <name>demo-caching-system</name>
-    <coherence-cache-config>coherence-cache-config.xml</coherence-cache-config>
-  </coherence-caching-system>
   <processor>
     <name>cache_processor</name>
     <rules>
