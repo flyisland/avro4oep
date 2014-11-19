@@ -1,102 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cache-config>
     <caching-scheme-mapping>    
-        <cache-mapping>       
-            <cache-name>myCoherenceCache</cache-name>       
-            <scheme-name>new-replicated</scheme-name>     
-        </cache-mapping>     
-        
-        <cache-mapping>       
-            <cache-name>myLoaderCache</cache-name>       
-            <scheme-name>test-loader-scheme</scheme-name>     
-        </cache-mapping>     
-    
-        <cache-mapping>       
-            <cache-name>myStoreCache</cache-name>       
-            <scheme-name>test-store-scheme</scheme-name>     
-        </cache-mapping>
         <cache-mapping>
-            <cache-name>
-                urCache
-            </cache-name>
-            <scheme-name>
-                new-replicated
-            </scheme-name>
+            <cache-name>urCache</cache-name>
+            <scheme-name>demo-distributed</scheme-name>
         </cache-mapping>
     </caching-scheme-mapping>  
     
     <caching-schemes>    
-        <replicated-scheme>      
-            <scheme-name>new-replicated</scheme-name>      
-            <service-name>ReplicatedCache</service-name>      
-            <backing-map-scheme>        
-                <class-scheme>          
-                    <scheme-ref>my-local-scheme</scheme-ref>					        
-                </class-scheme>      
-            </backing-map-scheme>    
-        </replicated-scheme>    
-    
-        <class-scheme>       
-            <scheme-name>my-local-scheme</scheme-name>       
-            <class-name>com.tangosol.net.cache.LocalCache</class-name>       
-            <eviction-policy>LRU</eviction-policy>       
-            <high-units>100</high-units>       
-            <low-units>50</low-units>     
-        </class-scheme>    
-    
-        <local-scheme>       
-            <scheme-name>test-loader-scheme</scheme-name>       
-            <eviction-policy>LRU</eviction-policy>       
-            <high-units>100</high-units>       
-            <low-units>50</low-units>       
-            <cachestore-scheme>          
-                <class-scheme>             
-                    <class-factory-name>com.bea.wlevs.cache.coherence.configuration.SpringFactory</class-factory-name>            
-                    <method-name>getLoader</method-name>            
-                    <init-params>              
-                        <init-param>                
-                            <param-type>java.lang.String</param-type>                
-                            <param-value>myCoherenceCache</param-value>              
-                        </init-param>
-                        <init-param>
-                            <param-type>
-                                java.lang.String
-                            </param-type>
-                            <param-value>
-                                urCache
-                            </param-value>
-                        </init-param>
-                    </init-params>          
-                </class-scheme>       
-            </cachestore-scheme>                
-        </local-scheme>    
-    
-        <local-scheme>      
-            <scheme-name>test-store-scheme</scheme-name>      
-            <eviction-policy>LRU</eviction-policy>      
-            <high-units>100</high-units>      
-            <low-units>50</low-units>      
-            <cachestore-scheme>        
-                <class-scheme>           
-                    <class-factory-name>com.bea.wlevs.cache.coherence.configuration.SpringFactory</class-factory-name>          
-                    <method-name>getStore</method-name>          
-                    <init-params>            
-                        <init-param>               
-                            <param-type>java.lang.String</param-type>               
-                            <param-value>myCoherenceCache</param-value>            
-                        </init-param>
-                        <init-param>
-                            <param-type>
-                                java.lang.String
-                            </param-type>
-                            <param-value>
-                                urCache
-                            </param-value>
-                        </init-param>
-                    </init-params>        
-                </class-scheme>      
-            </cachestore-scheme>    
-        </local-scheme>  
+        <distributed-scheme>
+                <scheme-name>demo-distributed</scheme-name>
+                <service-name>demo-service</service-name>
+                <thread-count>8</thread-count>			
+                <partition-count>509</partition-count>
+                <backing-map-scheme>
+                        <local-scheme>
+                                <scheme-ref>backing-map</scheme-ref>
+                        </local-scheme>
+                </backing-map-scheme>
+                <autostart>true</autostart>
+        </distributed-scheme>
+        
+        <local-scheme>
+                <scheme-name>backing-map</scheme-name>
+        </local-scheme>
     </caching-schemes>
 </cache-config>
 
