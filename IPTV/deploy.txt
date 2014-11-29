@@ -4,3 +4,5 @@ java -jar D:\OracleEventProcess\oep\bin\wlevsdeploy.jar -url http://10.10.10.10:
 java -jar D:\OracleEventProcess\oep\bin\wlevsdeploy.jar -url http://10.10.10.10:9002/wlevsdeployer -user wlevs -password welcome1 -uninstall FastData_App.IPTV
 
 java -cp ./iptv-oep_profile.jar:/home/oracle/Middleware/Oracle_Home/coherence/lib/coherence.jar iptv.demo.CacheLoader ./ur.csv ./coherence-cache-config.xml
+
+java -cp ./iptv-oep_profile.jar iptv.demo.kafka.KafkaTest 5

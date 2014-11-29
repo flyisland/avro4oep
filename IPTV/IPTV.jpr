@@ -417,6 +417,18 @@
             <value n="id" v="Coherence Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Kafka_2.9.2-0.8.1.1"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Scala-library-2.9.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Metrics-core-2.2.0"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -519,6 +531,33 @@
                <value n="id" v="Commons-lang-2.5"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="lib/kafka_2.9.2-0.8.1.1.jar"/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Kafka_2.9.2-0.8.1.1"/>
+               <value n="id" v="Kafka_2.9.2-0.8.1.1"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="lib/scala-library-2.9.2.jar"/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Scala-library-2.9.2"/>
+               <value n="id" v="Scala-library-2.9.2"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="lib/metrics-core-2.2.0.jar"/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Metrics-core-2.2.0"/>
+               <value n="id" v="Metrics-core-2.2.0"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -572,6 +611,18 @@
          </hash>
          <hash>
             <value n="id" v="Coherence Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Kafka_2.9.2-0.8.1.1"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Scala-library-2.9.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Metrics-core-2.2.0"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
