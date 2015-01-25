@@ -29,28 +29,32 @@
     <wlevs:event-type type-name="UserRegionBean">
       <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>
     </wlevs:event-type>
+    <wlevs:event-type type-name="addArea_Type">
+      <wlevs:properties>
+        <wlevs:property name="userId" type="char" length="32"/>
+        <wlevs:property name="pageId" type="char" length="32"/>
+        <wlevs:property name="areaId" type="char" length="16"/>
+      </wlevs:properties>
+    </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
-    <wlevs:listener ref="inChannel"/>
+    <wlevs:listener ref="rawChannel"/>
     <wlevs:instance-property name="bindPort" value="9090"/>
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
   <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
   <wlevs:event-bean id="Alert" class="iptv.demo.AlertBean"/>
-  <wlevs:channel id="inChannel" event-type="DemoEventType">
-    <wlevs:listener ref="cache_processor"/>
-    <wlevs:listener ref="count_processor"/>
+  <wlevs:channel id="rawChannel" event-type="DemoEventType">
+    <wlevs:listener ref="add_area_from_cache"/>
   </wlevs:channel>
-  <wlevs:processor id="count_processor"/>
-  <wlevs:channel id="outChannel" event-type="AlertEventType">
+  <wlevs:channel id="clickChannel" event-type="DemoEventType">
     <wlevs:listener ref="Alert"/>
-    <wlevs:source ref="count_processor"/>
   </wlevs:channel>
   <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
     <wlevs:caching-system ref="demo-caching-system"/>
   </wlevs:cache>
-  <wlevs:processor id="cache_processor">
-    <wlevs:listener ref="outChannel"/>
+  <wlevs:processor id="add_area_from_cache">
+    <wlevs:listener ref="clickChannel"/>
     <wlevs:cache-source ref="urCache"/>
   </wlevs:processor>
 </beans>

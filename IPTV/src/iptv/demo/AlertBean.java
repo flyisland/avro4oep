@@ -12,10 +12,6 @@ public class AlertBean implements StreamSink {
 
     @Override
     public void onInsertEvent(Object event) throws EventRejectedException {
-        if (event instanceof AlertEvent) {
-            AlertEvent alert = (AlertEvent) event;
-            
-            System.out.println(df.format(new Date())+"->"+alert.toString());
-        }
+        System.out.println(df.format(new Date())+"->"+event.toString());
     }
 }

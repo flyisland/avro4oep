@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wlevs:config xmlns:wlevs="http://www.bea.com/ns/wlevs/config/application">
   <processor>
-    <name>count_processor</name>
+    <name>add_area_from_cache</name>
     <rules>
-      <query id="UserCount"><![CDATA[ 
- select "Click Count" as atype, userId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by userId ]]></query>
-      <query id="PageCount"><![CDATA[ 
- select "Page Count" as atype, pageId as id, count(*) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] group by pageId ]]></query>
-      <query id="ActiveUser"><![CDATA[ 
- select "Active User" as atype, "0" as id, count(distinct userId) as figure from inChannel [ RANGE 1 MINUTE slide 1 seconds] ]]></query>
+      <query id="GetUserArea"><![CDATA[ 
+ select rawChannel.userId as userId , rawChannel.pageId as pageId , urCache.regionId as areaId
+ from rawChannel [now], urCache 
+ where rawChannel.userId=urCache.userId]]></query>
     </rules>
   </processor>
-  <processor>
-    <name>cache_processor</name>
-    <rules>
-      <query id="ActiveUserRegion"><![CDATA[ 
- select "Region Active" as atype, urCache.regionId as id, urCache.userId as figure
- from inChannel [now], urCache 
- where inChannel.userId=urCache.userId]]></query>
-    </rules>
-  </processor>
+  <channel>
+    <name>clickChannel</name>
+  </channel>
 </wlevs:config>
