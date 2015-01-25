@@ -12,4 +12,21 @@
   <channel>
     <name>clickChannel</name>
   </channel>
+  <processor>
+    <name>uvpvProcessor</name>
+    <rules>
+      <query id="uvpvSecond"><![CDATA[ 
+ select "uvpvSecond" as eType, pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
+ from clickChannel [RANGE 1 SECOND  SLIDE 1 SECOND]
+ group by pageId, areaId]]></query>
+      <query id="uvpvMinute"><![CDATA[ 
+ select "uvpvMinute" as eType, pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
+ from clickChannel [RANGE 1 MINUTE SLIDE 1 SECOND]
+ group by pageId, areaId]]></query>
+      <query id="uvpv30minTotal"><![CDATA[ 
+ select "uvpv30minTotal" as eType, pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
+ from clickChannel [RANGE 30 MINUTE SLIDE 1 SECOND]
+ group by pageId, areaId]]></query>
+    </rules>
+  </processor>
 </wlevs:config>

@@ -23,17 +23,16 @@
     <wlevs:event-type type-name="DemoEventType">
       <wlevs:class>iptv.demo.DemoEvent</wlevs:class>
     </wlevs:event-type>
-    <wlevs:event-type type-name="AlertEventType">
-      <wlevs:class>iptv.demo.AlertEvent</wlevs:class>
-    </wlevs:event-type>
     <wlevs:event-type type-name="UserRegionBean">
       <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>
     </wlevs:event-type>
-    <wlevs:event-type type-name="addArea_Type">
+    <wlevs:event-type type-name="PVUVType">
       <wlevs:properties>
-        <wlevs:property name="userId" type="char" length="32"/>
-        <wlevs:property name="pageId" type="char" length="32"/>
+        <wlevs:property name="eType" type="char" length="256"/>
         <wlevs:property name="areaId" type="char" length="16"/>
+        <wlevs:property name="pageId" type="char" length="32"/>
+        <wlevs:property name="uv" type="int"/>
+        <wlevs:property name="pv" type="int"/>
       </wlevs:properties>
     </wlevs:event-type>
   </wlevs:event-type-repository>
@@ -48,7 +47,7 @@
     <wlevs:listener ref="add_area_from_cache"/>
   </wlevs:channel>
   <wlevs:channel id="clickChannel" event-type="DemoEventType">
-    <wlevs:listener ref="Alert"/>
+    <wlevs:listener ref="uvpvProcessor"/>
   </wlevs:channel>
   <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
     <wlevs:caching-system ref="demo-caching-system"/>
@@ -57,4 +56,9 @@
     <wlevs:listener ref="clickChannel"/>
     <wlevs:cache-source ref="urCache"/>
   </wlevs:processor>
+  <wlevs:processor id="uvpvProcessor"/>
+  <wlevs:channel id="pvuvChannel" event-type="PVUVType">
+    <wlevs:listener ref="Alert"/>
+    <wlevs:source ref="uvpvProcessor"/>
+  </wlevs:channel>
 </beans>
