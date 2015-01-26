@@ -27,13 +27,7 @@
       <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>
     </wlevs:event-type>
     <wlevs:event-type type-name="PVUVType">
-      <wlevs:properties>
-        <wlevs:property name="eType" type="char" length="256"/>
-        <wlevs:property name="areaId" type="char" length="16"/>
-        <wlevs:property name="pageId" type="char" length="32"/>
-        <wlevs:property name="uv" type="int"/>
-        <wlevs:property name="pv" type="int"/>
-      </wlevs:properties>
+      <wlevs:class>iptv.demo.PVUVEvent</wlevs:class>
     </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
@@ -42,7 +36,7 @@
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
   <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
-  <wlevs:event-bean id="Alert" class="iptv.demo.AlertBean"/>
+  <wlevs:event-bean id="Alert" class="iptv.demo.BatchJSONBean"/>
   <wlevs:channel id="rawChannel" event-type="DemoEventType">
     <wlevs:listener ref="add_area_from_cache"/>
   </wlevs:channel>
@@ -57,7 +51,7 @@
     <wlevs:cache-source ref="urCache"/>
   </wlevs:processor>
   <wlevs:processor id="uvpvProcessor"/>
-  <wlevs:channel id="pvuvChannel" event-type="PVUVType">
+  <wlevs:channel id="pvuvChannel" event-type="PVUVType" batching="true">
     <wlevs:listener ref="Alert"/>
     <wlevs:source ref="uvpvProcessor"/>
   </wlevs:channel>
