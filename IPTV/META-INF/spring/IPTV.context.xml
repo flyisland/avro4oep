@@ -36,9 +36,9 @@
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
   <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
-  <wlevs:event-bean id="Alert" class="iptv.demo.BatchJSONBean">
+  <wlevs:event-bean id="secJSON" class="iptv.demo.BatchJSONBean">
     <wlevs:instance-property name="etopic" value="browserStreamSec"/>
-    </wlevs:event-bean>
+  </wlevs:event-bean>
   <wlevs:channel id="rawChannel" event-type="DemoEventType">
     <wlevs:listener ref="add_area_from_cache"/>
   </wlevs:channel>
@@ -53,8 +53,22 @@
     <wlevs:cache-source ref="urCache"/>
   </wlevs:processor>
   <wlevs:processor id="uvpvProcessor"/>
-  <wlevs:channel id="pvuvChannel" event-type="PVUVType" batching="true">
-    <wlevs:listener ref="Alert"/>
+  <wlevs:channel id="secChannel" event-type="PVUVType" batching="true">
+    <wlevs:listener ref="secJSON"/>
+    <wlevs:source ref="uvpvProcessor"/>
+  </wlevs:channel>
+  <wlevs:event-bean id="minJSON" class="iptv.demo.BatchJSONBean">
+    <wlevs:instance-property name="etopic" value="browserStreamMin"/>
+  </wlevs:event-bean>
+  <wlevs:event-bean id="totalJSON" class="iptv.demo.BatchJSONBean">
+    <wlevs:instance-property name="etopic" value="browserStreamTotal"/>
+  </wlevs:event-bean>
+  <wlevs:channel id="minChannel" event-type="PVUVType" batching="true">
+    <wlevs:listener ref="minJSON"/>
+    <wlevs:source ref="uvpvProcessor"/>
+  </wlevs:channel>
+  <wlevs:channel id="totalChannel" event-type="PVUVType" batching="true">
+    <wlevs:listener ref="totalJSON"/>
     <wlevs:source ref="uvpvProcessor"/>
   </wlevs:channel>
 </beans>
