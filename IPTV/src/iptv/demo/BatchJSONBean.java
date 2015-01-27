@@ -21,7 +21,7 @@ public class BatchJSONBean implements BatchStreamSink {
         for (Object obj : collection){
             if (obj instanceof PVUVEvent) {
                 PVUVEvent pvuv = (PVUVEvent) obj;
-                json= String.format("{\"type\":\"%s\", \"time\":\"%s\", \"pageId\":\"%s\", \"areaId\":\"%s\", \"pv\":\"%d\", \"uv\":\"%d\", }",
+                json= String.format("{\"type\":\"%s\", \"time\":\"%s\", \"pageId\":%d, \"area\":\"%s\", \"pv\":%d, \"uv\":%d, }",
                                     pvuv.getEtype(), eTime, pvuv.getPageId(), pvuv.getAreaId(), pvuv.getPv(), pvuv.getUv());
                 System.out.println(json);
             }

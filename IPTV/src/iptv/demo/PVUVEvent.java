@@ -2,7 +2,7 @@ package iptv.demo;
 
 public class PVUVEvent {
     private String  etype;
-    private String  pageId;
+    private int     pageId;
     private String  areaId;
     private int  pv;
     private int  uv;
@@ -15,11 +15,11 @@ public class PVUVEvent {
         return etype;
     }
 
-    public void setPageId(String pageId) {
+    public void setPageId(int pageId) {
         this.pageId = pageId;
     }
 
-    public String getPageId() {
+    public int getPageId() {
         return pageId;
     }
 
@@ -49,6 +49,6 @@ public class PVUVEvent {
 
 
     public String toString(){
-        return "pageId:"+this.pageId+", areaId:"+this.areaId+", pv:"+this.pv+", uv:"+this.uv;
+        return "pageId:"+this.pageId+", area:"+this.areaId+", pv:"+this.pv+", uv:"+this.uv;
     }
 }

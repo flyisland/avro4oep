@@ -2,14 +2,14 @@ package iptv.demo;
 
 public class RawEvent {
     private String      userId;
-    private String      pageId;
+    private int         pageId;
     private String      areaId;
 
     public static RawEvent newInstance(String[] list){
         RawEvent de = new RawEvent();
         try {
             de.setUserId(list[1]);
-            de.setPageId(list[4]);
+            de.setPageId(Integer.parseInt(list[4]));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -25,11 +25,11 @@ public class RawEvent {
         return userId;
     }
 
-    public void setPageId(String pageId) {
+    public void setPageId(int pageId) {
         this.pageId = pageId;
     }
 
-    public String getPageId() {
+    public int getPageId() {
         return pageId;
     }
 
