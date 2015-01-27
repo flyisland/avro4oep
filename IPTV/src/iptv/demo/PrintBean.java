@@ -4,9 +4,9 @@ import com.bea.wlevs.ede.api.EventRejectedException;
 import com.bea.wlevs.ede.api.StreamSink;
 import java.util.Date; 
 
-public class AlertBean implements StreamSink {
+public class PrintBean implements StreamSink {
     java.text.DateFormat df = new java.text.SimpleDateFormat("hh:mm:ss"); 
-    public AlertBean() {
+    public PrintBean() {
         super();
     }
 
