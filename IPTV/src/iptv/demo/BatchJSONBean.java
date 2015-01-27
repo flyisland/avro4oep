@@ -14,31 +14,37 @@ public class BatchJSONBean implements BatchStreamSink {
 
     @Override
     public void onInsertEvents(Collection<Object> collection) throws EventRejectedException {
-        System.out.println("  ==B==   ");
-        
-        String  json;
+        StringBuilder  json = new StringBuilder("[");
         String eTime = df.format(new Date());
+        boolean first = true;
         for (Object obj : collection){
             if (obj instanceof PVUVEvent) {
                 PVUVEvent pvuv = (PVUVEvent) obj;
-                json= String.format("{\"type\":\"%s\", \"time\":\"%s\", \"pageId\":%d, \"area\":\"%s\", \"pv\":%d, \"uv\":%d, }",
-                                    pvuv.getEtype(), eTime, pvuv.getPageId(), pvuv.getAreaId(), pvuv.getPv(), pvuv.getUv());
-                System.out.println(json);
+                if (!first) {json.append(",\n");}
+                json.append(toJson(eTime, pvuv));
+                first = false;
             }
         }
+        json.append("]");
+        System.out.println(json);
     }
 
     @Override
-    public void onInsertEvent(Object object) throws EventRejectedException {
-        System.out.println("  ==S==   ");
-        
-        String  json;
-        String eTime = df.format(new Date());
+    public void onInsertEvent(Object object) throws EventRejectedException {     
         if (object instanceof PVUVEvent) {
+            StringBuilder  json = new StringBuilder("[");
+            String eTime = df.format(new Date());
             PVUVEvent pvuv = (PVUVEvent) object;
-            json= String.format("{\"type\":\"%s\", \"time\":\"%s\", \"pageId\":\"%s\", \"areaId\":\"%s\", \"pv\":\"%d\", \"uv\":\"%d\", }",
-                                pvuv.getEtype(), eTime, pvuv.getPageId(), pvuv.getAreaId(), pvuv.getPv(), pvuv.getUv());
+            json.append(toJson(eTime, pvuv)).append("]");
             System.out.println(json);
         }
+    }
+    
+    private StringBuilder toJson(String eTime, PVUVEvent pvuv) {
+        StringBuilder  json = new StringBuilder("{");
+        json.append("\"type\":\"").append(pvuv.getEtype()).append("\", \"time\":\"").append(eTime);
+        json.append("\", \"pageId\":").append(pvuv.getPageId()).append(", \"area\":\"").append(pvuv.getAreaId());
+        json.append("\", \"pv\":").append(pvuv.getPv()).append(", \"uv\":").append(pvuv.getUv()).append("}");
+        return json;
     }
 }
