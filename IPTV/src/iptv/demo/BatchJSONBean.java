@@ -7,7 +7,17 @@ import java.util.Collection;
 import java.util.Date;
 
 public class BatchJSONBean implements BatchStreamSink {
-    java.text.DateFormat df = new java.text.SimpleDateFormat("yyyyMMddhhmmss"); 
+    private java.text.DateFormat df = new java.text.SimpleDateFormat("yyyyMMddhhmmss"); 
+    private String  etopic; // topic name of kafka
+
+    public void setEtopic(String etopic) {
+        this.etopic = etopic;
+    }
+
+    public String getEtopic() {
+        return etopic;
+    }
+
     public BatchJSONBean() {
         super();
     }
@@ -42,7 +52,7 @@ public class BatchJSONBean implements BatchStreamSink {
     
     private StringBuilder toJson(String eTime, PVUVEvent pvuv) {
         StringBuilder  json = new StringBuilder("{");
-        json.append("\"type\":\"").append(pvuv.getEtype()).append("\", \"time\":\"").append(eTime);
+        json.append("\"type\":\"").append(etopic).append("\", \"time\":\"").append(eTime);
         json.append("\", \"pageId\":").append(pvuv.getPageId()).append(", \"area\":\"").append(pvuv.getAreaId());
         json.append("\", \"pv\":").append(pvuv.getPv()).append(", \"uv\":").append(pvuv.getUv()).append("}");
         return json;

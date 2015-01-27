@@ -36,7 +36,9 @@
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
   <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
-  <wlevs:event-bean id="Alert" class="iptv.demo.BatchJSONBean"/>
+  <wlevs:event-bean id="Alert" class="iptv.demo.BatchJSONBean">
+    <wlevs:instance-property name="etopic" value="browserStreamSec"/>
+    </wlevs:event-bean>
   <wlevs:channel id="rawChannel" event-type="DemoEventType">
     <wlevs:listener ref="add_area_from_cache"/>
   </wlevs:channel>
