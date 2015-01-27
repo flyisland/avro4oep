@@ -21,7 +21,7 @@
   http://www.oracle.com/ns/oep/nosqldb/oep-nosqldb.xsd">
   <wlevs:event-type-repository>
     <wlevs:event-type type-name="DemoEventType">
-      <wlevs:class>iptv.demo.DemoEvent</wlevs:class>
+      <wlevs:class>iptv.demo.RawEvent</wlevs:class>
     </wlevs:event-type>
     <wlevs:event-type type-name="UserRegionBean">
       <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>

@@ -1,12 +1,12 @@
 package iptv.demo;
 
-public class DemoEvent {
+public class RawEvent {
     private String      userId;
     private String      pageId;
     private String      areaId;
 
-    public static DemoEvent newInstance(String[] list){
-        DemoEvent de = new DemoEvent();
+    public static RawEvent newInstance(String[] list){
+        RawEvent de = new RawEvent();
         try {
             de.setUserId(list[1]);
             de.setPageId(list[4]);
@@ -41,7 +41,7 @@ public class DemoEvent {
         return areaId;
     }
 
-    public DemoEvent() {
+    public RawEvent() {
         super();
     }
     

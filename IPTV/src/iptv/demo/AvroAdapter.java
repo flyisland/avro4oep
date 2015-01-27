@@ -86,7 +86,7 @@ public class AvroAdapter implements RunnableBean, StreamSource, AvroSourceProtoc
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DemoEvent de = DemoEvent.newInstance(list);
+        RawEvent de = RawEvent.newInstance(list);
         if (null != de){
             this.eventSender.sendInsertEvent(de);
         }

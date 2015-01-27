@@ -12,14 +12,14 @@ import java.io.StringReader;
 import java.util.List;
 
 public class TestCSV {
-    private ColumnPositionMappingStrategy<DemoEvent> strat;
-    private CsvToBean<DemoEvent> csv;
+    private ColumnPositionMappingStrategy<RawEvent> strat;
+    private CsvToBean<RawEvent> csv;
         private String  line = "2014-11-06 15:50:53:610 075500715758    http://183.59.161.135:8082/EPG/jsp/defaulthdcctv/en/Category.jsp?directplay=0&lastchannelNo=null&isComeFromPredeal=1&joinFlag=0 http://183.59.161.135:8082/EPG/jsp/PreDealHWCTC.jsp?directPlay=0&lastChannelNo=null&FIRSTPAGE=defaulthdcctv/en/Category.jsp 635 null    null    null    null    null";      
 
     public TestCSV() {
         super();
         strat = new ColumnPositionMappingStrategy<>();
-        strat.setType(DemoEvent.class);
+        strat.setType(RawEvent.class);
         strat.setColumnMapping("trackTime", "userId", "targetURL", "referURL", "pageId");
         csv = new CsvToBean<>();
     }
@@ -31,12 +31,12 @@ public class TestCSV {
     }
     
     public void testParse(){
-        List<DemoEvent> list;
+        List<RawEvent> list;
         try {
             list = csv.parse(strat, new CSVReader(new FileReader("r:\\user_iptv.txt"), '\t'));
             int i = 0;
             while(i < list.size()){
-                DemoEvent ute = list.get(i);
+                RawEvent ute = list.get(i);
                 i ++;
                 System.out.println("Line: "+i+" -> "+ute.getPageId());
             }
