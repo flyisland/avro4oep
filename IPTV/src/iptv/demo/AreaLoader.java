@@ -52,7 +52,7 @@ public class AreaLoader {
         System.out.println("==> cache size = "+cache.size());
         int i=0;
         long begin=System.currentTimeMillis();
-        CSVReader csv = new CSVReader(new BufferedReader(new FileReader(datafileName)), ',');
+        CSVReader csv = new CSVReader(new BufferedReader(new FileReader(datafileName)), '\t');
         String [] nextLine = null;
         HashMap<String, UserRegionBean> tempMap = new HashMap<String, UserRegionBean>();
         while ((nextLine = csv.readNext()) != null) {
