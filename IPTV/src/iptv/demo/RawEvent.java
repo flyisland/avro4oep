@@ -11,7 +11,7 @@ public class RawEvent {
             de.setUserId(list[1]);
             de.setPageId(Integer.parseInt(list[4]));
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
         return de;
