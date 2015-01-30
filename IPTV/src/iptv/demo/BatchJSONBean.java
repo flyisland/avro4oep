@@ -16,7 +16,7 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 public class BatchJSONBean implements BatchStreamSink {
-    private java.text.DateFormat df = new java.text.SimpleDateFormat("yyyyMMddhhmmss"); 
+    private java.text.DateFormat df = new java.text.SimpleDateFormat("yyyyMMddHHmmss"); 
     private String  etopic; // topic name of kafka
     private Producer<String, String> producer = null;
 
