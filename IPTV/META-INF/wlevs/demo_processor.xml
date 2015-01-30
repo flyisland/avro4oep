@@ -15,33 +15,54 @@
   <processor>
     <name>uvpvProcessor</name>
     <rules>
+      <view id="viewSec" schema="pageId areaId userId"><![CDATA[ 
+      select pageId, areaId, userId from clickChannel [RANGE 1 SECOND SLIDE 1 SECOND] 
+      ]]></view>
+      <view id="viewMin" schema="pageId areaId userId"><![CDATA[ 
+      select pageId, areaId, userId from clickChannel [RANGE 1 MINUTE SLIDE 1 MINUTE]
+      ]]></view>
+      <view id="view30Min" schema="pageId areaId userId"><![CDATA[ 
+      select pageId, areaId, userId from clickChannel [RANGE 30 MINUTE SLIDE 1 SECOND]
+      ]]></view>
       <query id="browserStreamSec"><![CDATA[ 
 ISTREAM(
 select pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
-from clickChannel [RANGE 1 SECOND SLIDE 1 SECOND] 
+from viewSec
 group by pageId, areaId)]]></query>
       <query id="browserStreamMin"><![CDATA[ 
 ISTREAM(
 select pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
-from clickChannel [RANGE 1 MINUTE SLIDE 1 MINUTE] 
+from viewMin
 group by pageId, areaId)]]></query>
       <query id="browserStreamTotal"><![CDATA[ 
 ISTREAM(
 select pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
-from clickChannel [RANGE 30 MINUTE SLIDE 1 SECOND] 
+from view30Min
 group by pageId, areaId)]]></query>
+      <query id="browserStreamSecAll"><![CDATA[ 
+ISTREAM(
+select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
+from viewSec)]]></query>
+      <query id="browserStreamMinAll"><![CDATA[ 
+ISTREAM(
+select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
+from viewMin)]]></query>
+      <query id="browserStreamTotalAll"><![CDATA[ 
+ISTREAM(
+select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
+from view30Min)]]></query>
     </rules>
   </processor>
   <channel>
     <name>secChannel</name>
-    <selector>browserStreamSec</selector>
+    <selector>browserStreamSec browserStreamSecAll</selector>
   </channel>
   <channel>
     <name>minChannel</name>
-    <selector>browserStreamMin</selector>
+    <selector>browserStreamMin browserStreamMinAll</selector>
   </channel>
   <channel>
     <name>totalChannel</name>
-    <selector>browserStreamTotal</selector>
+    <selector>browserStreamTotal browserStreamTotalAll</selector>
   </channel>
 </wlevs:config>
