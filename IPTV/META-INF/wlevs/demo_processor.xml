@@ -23,7 +23,7 @@ group by pageId, areaId)]]></query>
       <query id="browserStreamMin"><![CDATA[ 
 ISTREAM(
 select pageId, areaId, count(*) as pv, count(distinct(userId)) as uv 
-from clickChannel [RANGE 1 MINUTE SLIDE 1 SECOND] 
+from clickChannel [RANGE 1 MINUTE SLIDE 1 MINUTE] 
 group by pageId, areaId)]]></query>
       <query id="browserStreamTotal"><![CDATA[ 
 ISTREAM(
