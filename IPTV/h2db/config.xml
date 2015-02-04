@@ -172,13 +172,13 @@
       <name>iptv</name>
    </domain>
    <data-source>
-    <name>muluDS</name>
+    <name>iptvDS</name>
     <connection-pool-params>
       <initial-capacity>1</initial-capacity>
       <max-capacity>10</max-capacity>
     </connection-pool-params>
     <driver-params>
-      <url>jdbc:h2:mem:mulu;INIT=CREATE TABLE IF NOT EXISTS mulu(pageId int, pageName VARCHAR(255), parentId int, s1 VARCHAR(255), s2 VARCHAR(255))\;CREATE TABLE IF NOT EXISTS area(userId  VARCHAR(255), areaId  VARCHAR(255));DB_CLOSE_DELAY=-1</url>
+      <url>jdbc:h2:mem:iptv;INIT=CREATE TABLE IF NOT EXISTS mulu(pageId int, pageName VARCHAR(255), parentId int, s1 VARCHAR(255), s2 VARCHAR(255))\;CREATE TABLE IF NOT EXISTS area(userId  VARCHAR(255), areaId  VARCHAR(255));DB_CLOSE_DELAY=-1</url>
       <driver-name>org.h2.Driver</driver-name>
       <properties>
         <element>

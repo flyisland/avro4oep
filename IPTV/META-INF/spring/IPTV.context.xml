@@ -80,7 +80,7 @@
     <wlevs:listener ref="totalJSON"/>
     <wlevs:source ref="uvpvProcessor"/>
   </wlevs:channel>
-  <wlevs:table id="muluTable" event-type="muluType" data-source="muluDS" table-name="mulu"/>
+  <wlevs:table id="muluTable" event-type="muluType" data-source="iptvDS" table-name="mulu"/>
   <wlevs:adapter id="H2DBInit_Adapter" class="iptv.demo.DBInitAdapter"/>
-  <wlevs:table id="areaTable" event-type="areaType" data-source="muluDS" table-name="area"/>
+  <wlevs:table id="areaTable" event-type="areaType" data-source="iptvDS" table-name="area"/>
 </beans>
