@@ -23,9 +23,6 @@
     <wlevs:event-type type-name="DemoEventType">
       <wlevs:class>iptv.demo.RawEvent</wlevs:class>
     </wlevs:event-type>
-    <wlevs:event-type type-name="UserRegionBean">
-      <wlevs:class>iptv.demo.UserRegionBean</wlevs:class>
-    </wlevs:event-type>
     <wlevs:event-type type-name="PVUVType">
       <wlevs:class>iptv.demo.PVUVEvent</wlevs:class>
     </wlevs:event-type>
@@ -50,7 +47,6 @@
     <wlevs:instance-property name="bindPort" value="9090"/>
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
-  <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
   <wlevs:event-bean id="secJSON" class="iptv.demo.PrintBean">
     <wlevs:instance-property name="etopic" value="browserStreamSec"/>
   </wlevs:event-bean>
@@ -60,12 +56,8 @@
   <wlevs:channel id="clickChannel" event-type="DemoEventType">
     <wlevs:listener ref="uvpvProcessor"/>
   </wlevs:channel>
-  <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
-    <wlevs:caching-system ref="demo-caching-system"/>
-  </wlevs:cache>
   <wlevs:processor id="enrich_raw_click">
     <wlevs:listener ref="clickChannel"/>
-    <wlevs:cache-source ref="urCache"/>
     <wlevs:table-source ref="muluTable"/>
     <wlevs:table-source ref="areaTable"/>
   </wlevs:processor>
