@@ -38,6 +38,12 @@
         <wlevs:property name="s2" type="char" length="256"/>
       </wlevs:properties>
     </wlevs:event-type>
+    <wlevs:event-type type-name="areaType">
+      <wlevs:properties>
+        <wlevs:property name="userId" type="char" length="256"/>
+        <wlevs:property name="areaId" type="char" length="256"/>
+      </wlevs:properties>
+    </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
     <wlevs:listener ref="rawChannel"/>
@@ -61,6 +67,7 @@
     <wlevs:listener ref="clickChannel"/>
     <wlevs:cache-source ref="urCache"/>
     <wlevs:table-source ref="muluTable"/>
+    <wlevs:table-source ref="areaTable"/>
   </wlevs:processor>
   <wlevs:processor id="uvpvProcessor"/>
   <wlevs:channel id="secChannel" event-type="PVUVType" batching="true">
@@ -83,4 +90,5 @@
   </wlevs:channel>
   <wlevs:table id="muluTable" event-type="muluType" data-source="muluDS" table-name="mulu"/>
   <wlevs:adapter id="H2DBInit_Adapter" class="iptv.demo.DBInitAdapter"/>
+  <wlevs:table id="areaTable" event-type="areaType" data-source="muluDS" table-name="area"/>
 </beans>

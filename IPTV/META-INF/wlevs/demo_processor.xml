@@ -5,9 +5,9 @@
     <rules>
       <query id="enrich_cql"><![CDATA[ 
  select rawChannel.userId as userId, muluTable.parentId as pageId,
-        urCache.regionId as areaId, muluTable.s1 as s1
- from rawChannel [now], urCache, muluTable
- where rawChannel.userId=urCache.userId and rawChannel.pageId = muluTable.pageId]]></query>
+        areaTable.areaId as areaId, muluTable.s1 as s1
+ from rawChannel [now], areaTable, muluTable
+ where rawChannel.userId=areaTable.userId and rawChannel.pageId = muluTable.pageId]]></query>
     </rules>
   </processor>
   <channel>
