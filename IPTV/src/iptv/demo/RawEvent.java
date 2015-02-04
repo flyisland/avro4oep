@@ -4,6 +4,7 @@ public class RawEvent {
     private String      userId;
     private int         pageId;
     private String      areaId;
+    private String      s1; // sequence 1
 
     public static RawEvent newInstance(String[] list){
         RawEvent de = new RawEvent();
@@ -39,6 +40,14 @@ public class RawEvent {
 
     public String getAreaId() {
         return areaId;
+    }
+
+    public void setS1(String s1) {
+        this.s1 = s1;
+    }
+
+    public String getS1() {
+        return s1;
     }
 
     public RawEvent() {

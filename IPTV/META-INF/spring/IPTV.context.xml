@@ -29,6 +29,15 @@
     <wlevs:event-type type-name="PVUVType">
       <wlevs:class>iptv.demo.PVUVEvent</wlevs:class>
     </wlevs:event-type>
+    <wlevs:event-type type-name="muluType">
+      <wlevs:properties>
+        <wlevs:property name="pageId" type="int"/>
+        <wlevs:property name="pageName" type="char" length="256"/>
+        <wlevs:property name="parentId" type="int"/>
+        <wlevs:property name="s1" type="char" length="256"/>
+        <wlevs:property name="s2" type="char" length="256"/>
+      </wlevs:properties>
+    </wlevs:event-type>
   </wlevs:event-type-repository>
   <wlevs:adapter id="avroInput" class="iptv.demo.AvroAdapter">
     <wlevs:listener ref="rawChannel"/>
@@ -36,11 +45,11 @@
 <!--    <wlevs:instance-property name="bindAddress" value="10.10.10.10"/> -->
   </wlevs:adapter>
   <wlevs:caching-system id="demo-caching-system" provider="coherence" advertise="true"/>
-  <wlevs:event-bean id="secJSON" class="iptv.demo.BatchJSONBean">
+  <wlevs:event-bean id="secJSON" class="iptv.demo.PrintBean">
     <wlevs:instance-property name="etopic" value="browserStreamSec"/>
   </wlevs:event-bean>
   <wlevs:channel id="rawChannel" event-type="DemoEventType">
-    <wlevs:listener ref="add_area_from_cache"/>
+    <wlevs:listener ref="enrich_raw_click"/>
   </wlevs:channel>
   <wlevs:channel id="clickChannel" event-type="DemoEventType">
     <wlevs:listener ref="uvpvProcessor"/>
@@ -48,19 +57,20 @@
   <wlevs:cache id="urCache" key-properties="userId" value-type="UserRegionBean" advertise="true">
     <wlevs:caching-system ref="demo-caching-system"/>
   </wlevs:cache>
-  <wlevs:processor id="add_area_from_cache">
+  <wlevs:processor id="enrich_raw_click">
     <wlevs:listener ref="clickChannel"/>
     <wlevs:cache-source ref="urCache"/>
+    <wlevs:table-source ref="muluTable"/>
   </wlevs:processor>
   <wlevs:processor id="uvpvProcessor"/>
   <wlevs:channel id="secChannel" event-type="PVUVType" batching="true">
     <wlevs:listener ref="secJSON"/>
     <wlevs:source ref="uvpvProcessor"/>
   </wlevs:channel>
-  <wlevs:event-bean id="minJSON" class="iptv.demo.BatchJSONBean">
+  <wlevs:event-bean id="minJSON" class="iptv.demo.PrintBean">
     <wlevs:instance-property name="etopic" value="browserStreamMin"/>
   </wlevs:event-bean>
-  <wlevs:event-bean id="totalJSON" class="iptv.demo.BatchJSONBean">
+  <wlevs:event-bean id="totalJSON" class="iptv.demo.PrintBean">
     <wlevs:instance-property name="etopic" value="browserStreamTotal"/>
   </wlevs:event-bean>
   <wlevs:channel id="minChannel" event-type="PVUVType" batching="true">
@@ -71,4 +81,6 @@
     <wlevs:listener ref="totalJSON"/>
     <wlevs:source ref="uvpvProcessor"/>
   </wlevs:channel>
+  <wlevs:table id="muluTable" event-type="muluType" data-source="muluDS" table-name="mulu"/>
+  <wlevs:adapter id="H2DBInit_Adapter" class="iptv.demo.DBInitAdapter"/>
 </beans>

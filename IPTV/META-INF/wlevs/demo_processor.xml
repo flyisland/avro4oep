@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wlevs:config xmlns:wlevs="http://www.bea.com/ns/wlevs/config/application">
   <processor>
-    <name>add_area_from_cache</name>
+    <name>enrich_raw_click</name>
     <rules>
-      <query id="GetUserArea"><![CDATA[ 
- select rawChannel.userId as userId , rawChannel.pageId as pageId , urCache.regionId as areaId
- from rawChannel [now], urCache 
- where rawChannel.userId=urCache.userId]]></query>
+      <query id="enrich_cql"><![CDATA[ 
+ select rawChannel.userId as userId, muluTable.parentId as pageId,
+        urCache.regionId as areaId, muluTable.s1 as s1
+ from rawChannel [now], urCache, muluTable
+ where rawChannel.userId=urCache.userId and rawChannel.pageId = muluTable.pageId]]></query>
     </rules>
   </processor>
   <channel>
@@ -42,15 +43,15 @@ group by pageId, areaId)]]></query>
       <query id="browserStreamSecAll"><![CDATA[ 
 ISTREAM(
 select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
-from viewSec)]]></query>
+from viewSec where pageId=1)]]></query>
       <query id="browserStreamMinAll"><![CDATA[ 
 ISTREAM(
 select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
-from viewMin)]]></query>
+from viewMin where pageId=1)]]></query>
       <query id="browserStreamTotalAll"><![CDATA[ 
 ISTREAM(
 select 1 as pageId, "1" as areaId, count(*) as pv, count(distinct(userId)) as uv 
-from view30Min)]]></query>
+from view30Min where pageId=1)]]></query>
     </rules>
   </processor>
   <channel>
